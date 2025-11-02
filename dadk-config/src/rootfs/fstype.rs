@@ -4,6 +4,7 @@ use serde::{Deserialize, Deserializer};
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum FsType {
     Fat32,
+    Ext4,
 }
 
 impl<'de> Deserialize<'de> for FsType {
@@ -15,6 +16,7 @@ impl<'de> Deserialize<'de> for FsType {
         s.make_ascii_lowercase();
         match s.as_str() {
             "fat32" => Ok(FsType::Fat32),
+            "ext4" => Ok(FsType::Ext4),
             _ => Err(serde::de::Error::custom("invalid fs type")),
         }
     }
